@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+    employeeapp:
+        container_name: employeeapp
+        image: sasacrow/employeeapp:1.0.4
+        build: .
+        ports:
+            - "8000:8000"
+        env_file:
+            - .env
+        depends_on:
+            - employeedb
+
+    employeedb:
+        container_name: employeedb
+        image: mysql:8
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: admin
+            MYSQL_DB: employeedb
+        volumes:
+            - mysqldata:/var/lib/mysql
+
+    phpmyadmin2:
+        container_name: phpmyadmin2
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "8081:80"
+        environment:
+            PMA_HOST: employeedb # Use the name of your MySQL service (defined in this file) as the host
+            PMA_PORT: 3306
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: admin
+
+volumes:
+    mysqldata: {}
