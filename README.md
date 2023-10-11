@@ -21,6 +21,11 @@ It is used by the Vue.js frontend for Employee Application.
 `CREATE DATABASE employeedb;`<br />
 `EXIT;`
 
+## Create model and controller class
+
+`php artisan make:model ModelName -m`
+`php artisan make:controller ControllerName -m`
+
 ## Migrate database
 
 `docker exec employeeapp php artisan migrate`
